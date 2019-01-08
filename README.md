@@ -1,8 +1,8 @@
 # Linux Server Configuration
 - This project is related to the udacity fullstack nanodegree, which is the last project. You will develop an application that provides a list of items within a variety of categories as well as provide a user registration and authentication system. Registered users will have the ability to post, edit and delete their own items.
 
-# Server Details:
-- URL: 18.222.182.39(18.222.182.39)
+## Server Details:
+- URL: 18.222.182.39
 - SSH port: 2200
 
 ## Laptop on which I deploy my webapplication:
@@ -31,16 +31,17 @@
 5.  now you can login using:
 `ssh -i us-east-backup.pem ubuntu@18.222.182.39`
 
-Now you have successfully logged in to the remote instance using your own computer.
+- Now you have successfully logged in to the remote instance using your own computer.
 
 ## 1. Create a new user named grader:
-- First, login to the remote server using `ssh -i us-east-backup.pem ubuntu@18.222.182.39`
+First, login to the remote server using `ssh -i us-east-backup.pem ubuntu@18.222.182.39`
 
 1.1. Run `sudo adduser grader`, set both password and account name to "grader"
 
 1.2. give access to all files for the newly added grader:
 `sudo nano /etc/sudoers.d/grader`
-- In the editor opened, add the following text, then save and exit: 
+
+In the editor opened, add the following text, then save and exit: 
 `grader ALL=(ALL:ALL) ALL`
 
 ## 2. Update and Upgrade existing packages
@@ -94,11 +95,13 @@ Run `sudo dpkg-reconfigure tzdata`, press "none of the above" -> "UTC"
 7.3 Get into postgreSQL shell: `psql`
 
 7.4 Create a new database named catalog and create a new user named catalog in postgreSQL shell:
+
 `CREATE DATABASE catalog;`
 
 `CREATE USER catalog;`
 
 7.5 Set a password for user catalog: (password is catalog)
+
 `ALTER ROLE catalog WITH PASSWORD 'catalog';`
 
 7.6 Give user "catalog" permission to "catalog" application database:
@@ -125,6 +128,7 @@ Run `sudo dpkg-reconfigure tzdata`, press "none of the above" -> "UTC"
 `cd MyApp`
 
 8.5 Clone the Catalog App to the virtual machine:
+
 `sudo git clone https://github.com/Bennylikescoding/udacityfullstack_itemcatalog.git`
 
 8.6 Move into the application folder:
@@ -186,13 +190,15 @@ move to: open('client_secrets.json', 'r'), change to: open('/var/www/MyApp/udaci
 </VirtualHost>
 ```
 
-9.3. Enable the virtual host；
+9.3. Enable the virtual host:
+
 `sudo a2ensite MyApp`
 
 `sudo systemctl reload apache2`
 
 ## 10. Create the .wsgi File:
 10.1. Move to /var/www/MyApp:
+
 `cd /var/www/MyApp`
 
 `sudo nano MyApp.wsgi`
@@ -214,7 +220,8 @@ application.secret_key = 'Add your secret key here'
 `sudo service apache2 restart`
 
 
-10.4 Visit site at 18.222.182.39(18.222.182.39)
+10.4 Visit site at 18.222.182.39
+
 
 - Note: If wrong, type sudo tail /var/log/apache2/error.log to see what happened, and also, disable and restart the apache site with the following steps
 1. Run `sudo a2dissite 000-default.conf`
