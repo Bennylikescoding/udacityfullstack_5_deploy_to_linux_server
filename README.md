@@ -23,7 +23,7 @@
 
 2. Choose Download, get the .pem keypair
 
-3. Enter into the Downloads folder using `cd /Downloads`
+3. Enter into the Downloads folder using `cd Downloads/`
 
 4. Open the terminal on Mac, type in:
 `chmod 600 us-east-backup.pem`
@@ -39,7 +39,7 @@ Now you have successfully logged in to the remote instance using your own comput
 1.1. Run `sudo adduser grader`, set both password and account name to "grader"
 
 1.2. give access to all files for the newly added grader:
-sudo nano /etc/sudoers.d/grader
+`sudo nano /etc/sudoers.d/grader`
 - In the editor opened, add the following text, then save and exit: 
 `grader ALL=(ALL:ALL) ALL`
 
@@ -158,23 +158,25 @@ move to: open('client_secrets.json', 'r'), change to: open('/var/www/MyApp/udaci
 `sudo nano /etc/apache2/sites-available/MyApp.conf`
 
 9.2. Add the following lines of code to the file to configure the virtual host.
-`<VirtualHost *:80>`
-`	ServerName 18.222.182.39`
-`	ServerAdmin ubuntu@18.222.182.39`
-`	WSGIScriptAlias / /var/www/MyApp/MyApp.wsgi`
-`	<Directory /var/www/MyApp/udacityfullstack_itemcatalog/>`
-`		Order allow,deny`
-`		Allow from all`
-`	</Directory>`
-`	Alias /static /var/www/MyApp/udacityfullstack_itemcatalog/static`
-`	<Directory /var/www/MyApp/udacityfullstack_itemcatalog/static/>`
-`		Order allow,deny`
-`		Allow from all`
-`	</Directory>`
-`	ErrorLog ${APACHE_LOG_DIR}/error.log`
-`	LogLevel warn`
-`	CustomLog ${APACHE_LOG_DIR}/access.log combined`
-`</VirtualHost>`
+```
+<VirtualHost *:80>
+	ServerName 18.222.182.39
+	ServerAdmin ubuntu@18.222.182.39
+	WSGIScriptAlias / /var/www/MyApp/MyApp.wsgi
+	<Directory /var/www/MyApp/udacityfullstack_itemcatalog/>
+		Order allow,deny
+		Allow from all
+	</Directory>
+	Alias /static /var/www/MyApp/udacityfullstack_itemcatalog/static
+	<Directory /var/www/MyApp/udacityfullstack_itemcatalog/static/>
+		Order allow,deny
+		Allow from all
+	</Directory>
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	LogLevel warn
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
 
 9.3. Enable the virtual host；
 `sudo a2ensite MyApp`
@@ -186,16 +188,16 @@ move to: open('client_secrets.json', 'r'), change to: open('/var/www/MyApp/udaci
 `sudo nano MyApp.wsgi`
 
 10.2. Add the following content:
+```
+#!/usr/bin/python
+import sys
+import logging
+logging.basicConfig(stream=sys.stderr)
+sys.path.insert(0,"/var/www/MyApp")
 
-`#!/usr/bin/python`
-`import sys`
-`import logging`
-`logging.basicConfig(stream=sys.stderr)`
-`sys.path.insert(0,"/var/www/MyApp")`
-
-`from udacityfullstack_itemcatalog import app as application`
-`application.secret_key = 'Add your secret key here'`
-
+from udacityfullstack_itemcatalog import app as application
+application.secret_key = 'Add your secret key here'
+```
 
 
 10.3. Restart apache service:
