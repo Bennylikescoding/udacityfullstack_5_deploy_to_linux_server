@@ -49,7 +49,7 @@ In the editor opened, add the following text, then save and exit:
 
 `sudo apt-get upgrade`
 
-## 3. Configure the ssh;
+## 3. Configure the ssh
 `sudo nano /etc/ssh/sshd_config, change port 22 to 2200`
 
 `sudo service ssh restart`
@@ -165,7 +165,7 @@ Run `sudo dpkg-reconfigure tzdata`, press "none of the above" -> "UTC"
 - Change client_secrets.json path to /var/www/catalog/catalog/client_secrets.json:
 move to: open('client_secrets.json', 'r'), change to: open('/var/www/MyApp/udacityfullstack_itemcatalog/client_secrets.json','r')
 
-## 9. Configure and Enable a New Virtual Host:
+## 9. Configure and Enable a New Virtual Host
 9.1. Create MyApp.conf to edit:
 `sudo nano /etc/apache2/sites-available/MyApp.conf`
 
@@ -196,7 +196,7 @@ move to: open('client_secrets.json', 'r'), change to: open('/var/www/MyApp/udaci
 
 `sudo systemctl reload apache2`
 
-## 10. Create the .wsgi File:
+## 10. Create the .wsgi File
 10.1. Move to /var/www/MyApp:
 
 `cd /var/www/MyApp`
