@@ -2,10 +2,10 @@
 - This project is related to the udacity fullstack nanodegree, which is the last project. You will develop an application that provides a list of items within a variety of categories as well as provide a user registration and authentication system. Registered users will have the ability to post, edit and delete their own items.
 
 # Server Details:
-- URL: 18.222.182.39
+- URL: 18.222.182.39(18.222.182.39)
 - SSH port: 2200
 
-# Laptop on which I deploy my webapplication:
+## Laptop on which I deploy my webapplication:
 - Macbook (MacOS Sierra 10.12.6)
 
 # Steps to complete this project
@@ -45,10 +45,12 @@ Now you have successfully logged in to the remote instance using your own comput
 
 ## 2. Update and Upgrade existing packages
 `sudo apt-get update`
+
 `sudo apt-get upgrade`
 
 ## 3. Configure the ssh;
 `sudo nano /etc/ssh/sshd_config, change port 22 to 2200`
+
 `sudo service ssh restart`
 
 - Open the lightsail instance page, go to Account page, move to the "Networking" tab, under the "Firewall" configuration part, choose "Edit rules" at the right bottom, then choose "Custom", "TCP", then type in "2200"  to the port range.
@@ -61,13 +63,16 @@ Now you have successfully logged in to the remote instance using your own comput
 - login to the remote server, type in:
 
 `sudo ufw allow 2200/tcp`
+
 `sudo ufw allow 80/tcp`
+
 `sudo ufw allow 123/udp`
+
 `sudo ufw enable `
 
 ## 5. Configure the local timezone to UTC
 
-`sudo dpkg-reconfigure tzdata, press "none of the above" -> "UTC"`
+Run `sudo dpkg-reconfigure tzdata`, press "none of the above" -> "UTC"
 
 ## 6. Install and configure Apache to serve a Python mod_wsgi application
 
@@ -90,6 +95,7 @@ Now you have successfully logged in to the remote instance using your own comput
 
 7.4 Create a new database named catalog and create a new user named catalog in postgreSQL shell:
 `CREATE DATABASE catalog;`
+
 `CREATE USER catalog;`
 
 7.5 Set a password for user catalog: (password is catalog)
@@ -130,7 +136,9 @@ Now you have successfully logged in to the remote instance using your own comput
 8.8 Edit database_setup.py, __init__.py, listsofanalysis.py, change engine = create_engine('sqlite:///analysislists_withusers.db') to engine = create_engine('postgresql://catalog:catalog@localhost/catalog'):
 
 `sudo nano database_setup.py`
+
 `sudo nano __init__.py`
+
 `sudo nano listsofanalysis.py`
 
 （reference: https://github.com/blurdylan/linux-server-configuration）
@@ -180,11 +188,13 @@ move to: open('client_secrets.json', 'r'), change to: open('/var/www/MyApp/udaci
 
 9.3. Enable the virtual host；
 `sudo a2ensite MyApp`
+
 `sudo systemctl reload apache2`
 
 ## 10. Create the .wsgi File:
 10.1. Move to /var/www/MyApp:
 `cd /var/www/MyApp`
+
 `sudo nano MyApp.wsgi`
 
 10.2. Add the following content:
@@ -204,7 +214,7 @@ application.secret_key = 'Add your secret key here'
 `sudo service apache2 restart`
 
 
-## Visit site at 18.222.182.39
+10.4 Visit site at 18.222.182.39(18.222.182.39)
 
 - Note: If wrong, type sudo tail /var/log/apache2/error.log to see what happened, and also, disable and restart the apache site with the following steps
 1. Run `sudo a2dissite 000-default.conf`
