@@ -49,9 +49,16 @@ In the editor opened, add the following text, then save and exit:
 
 
 ## 2. Update and Upgrade existing packages
+
 `sudo apt-get update`
 
 `sudo apt-get upgrade`
+
+`sudo apt-get dist-upgrade`
+
+You can check the upgradable lists on the login page after ssh-ed into the remote server.
+
+See this link (https://askubuntu.com/questions/94102/what-is-the-difference-between-apt-get-update-and-upgrade) for reference
 
 ## 3. Configure the ssh
 `sudo nano /etc/ssh/sshd_config, change port 22 to 2200`
@@ -90,11 +97,17 @@ In the editor opened, add the following text, then save and exit:
 
 `ssh -i ~/.ssh/udacity_key.rsa -p 2200 grader@18.222.182.39`
 
-- Note: you can't use `ssh -i ~/.ssh/udacity_key.rsa -p 2200 ubuntu@18.222.182.39` to login anymore because the owner has been changed from root(ubuntu) to grader. However, you can still login to the root user using `cd Downloads/`, and then `ssh -i us-east-backup.pem -p 2200 ubuntu@18.222.182.39`.
+- Note: you can't use `ssh -i ~/.ssh/udacity_key.rsa -p 2200 ubuntu@18.222.182.39` to login anymore because the public key is set only to allow grader (not the root (ubuntu) user to log in). However, you can still login to the root user using `cd Downloads/`, and then `ssh -i us-east-backup.pem -p 2200 ubuntu@18.222.182.39`.
 
 5. Force key-based authentication for grader:
 
 - `sudo nano /etc/ssh/sshd_config`, change PasswordAuthentication to `no`
+
+Also, disable remote login of root user:
+
+- Change `PermitRootLogin` to `no`
+
+Then, restart the service:
 
 - `sudo service ssh restart`
 
@@ -183,7 +196,6 @@ Run `sudo dpkg-reconfigure tzdata`, press "none of the above" -> "UTC"
 
 `sudo nano listsofanalysis.py`
 
-（reference: https://github.com/blurdylan/linux-server-configuration）
 
 8.9 Install pip:
 `sudo apt-get install python-pip`
@@ -264,3 +276,10 @@ application.secret_key = 'Add your secret key here'
 - Note: If wrong, type sudo tail /var/log/apache2/error.log to see what happened, and also, disable and restart the apache site with the following steps
 1. Run `sudo a2dissite 000-default.conf`
 2. Restart the server with `sudo service apache2 reload`
+
+## Third-Party Resources
+
+[Create lightsail instances] (https://lightsail.aws.amazon.com/ls/webapp/home/instances)
+[Set up SSH login keypairs](https://lightsail.aws.amazon.com/ls/docs/en/articles/lightsail-how-to-set-up-ssh)
+[How to update and upgrade packages](https://askubuntu.com/questions/94102/what-is-the-difference-between-apt-get-update-and-upgrade)
+[A Step by Step Guide to Install LAMP (Linux, Apache, MySQL, Python) on Ubuntu](https://blog.udacity.com/2015/03/step-by-step-guide-install-lamp-linux-apache-mysql-python-ubuntu.html)
