@@ -4,6 +4,7 @@
 ## Server Details:
 - URL: 18.222.182.39
 - SSH port: 2200
+- User name and password for Udacity reviewer: `grader`, `grader`
 
 ## Laptop on which I deploy my webapplication:
 - Macbook (MacOS Sierra 10.12.6)
@@ -21,7 +22,7 @@
 ## Configure connection using my local machine:
 1. Create ssh keypair according to (https://lightsail.aws.amazon.com/ls/docs/en/articles/lightsail-how-to-set-up-ssh)
 
-2. Choose Download, get the .pem keypair
+2. Choose Download, get the `us-east-backup.pem` keypair
 
 3. Enter into the Downloads folder using `cd Downloads/`
 
@@ -38,11 +39,13 @@ First, login to the remote server using `ssh -i us-east-backup.pem ubuntu@18.222
 
 1.1. Run `sudo adduser grader`, set both password and account name to "grader"
 
-1.2. give access to all files for the newly added grader:
+1.2. Give access to all files for the newly added grader:
 `sudo nano /etc/sudoers.d/grader`
 
 In the editor opened, add the following text, then save and exit: 
 `grader ALL=(ALL:ALL) ALL`
+
+
 
 ## 2. Update and Upgrade existing packages
 `sudo apt-get update`
@@ -59,6 +62,40 @@ In the editor opened, add the following text, then save and exit:
 - now you can log in using the new port number:
 `ssh -i us-east-backup.pem -p 2200 ubuntu@18.222.182.39`
 
+## For grader:
+### 1. On local machine, open the terminal, type in `ssh-keygen -f ~/.ssh/udacity_key.rsa`, this will create two keypairs under the folder `/Users/wangxiansheng/.ssh/`, one is `udacity_key.rsa`, the other is `udacity_key.rsa.pub`
+
+### 2. Log into the remote machine as *root* user through ssh:
+
+- Open a new terminal, type in 
+`cd Downloads/`
+
+`ssh -i us-east-backup.pem -p 2200 ubuntu@18.222.182.39`
+
+- and create the following file:
+`sudo vim /home/grader/.ssh/authorized_keys`
+
+### 3. Copy the content of the `udacity_key.rsa.pub` file from your local machine to the `/home/grader/.ssh/authorized_keys` file you just created on the remote machine. Then change some permissions on remote machine: (Be very careful that the copy method of nano is different from the vim, if incomplete .pub content is copied, it will result in incomplete authorized_keys on the remote machine, which will take hours to debug.)
+
+`sudo chmod 700 /home/grader/.ssh`
+
+`sudo chmod 644 /home/grader/.ssh/authorized_keys`
+
+### 4. Finally change the owner from root to grader: 
+
+`sudo chown -R grader:grader /home/grader/.ssh`
+
+*Now you can open a new terminal window on the local machine*:
+
+`ssh -i ~/.ssh/udacity_key.rsa -p 2200 grader@18.222.182.39`
+
+- Note: you can't use `ssh -i ~/.ssh/udacity_key.rsa -p 2200 ubuntu@18.222.182.39` to login anymore because the owner has been changed from root(ubuntu) to grader. However, you can still ogin to the root user using `cd Downloads/`, and then `ssh -i us-east-backup.pem -p 2200 ubuntu@18.222.182.39`.
+
+### 5. Force key-based authentication for grader:
+
+- `sudo nano /etc/ssh/sshd_config`, change PasswordAuthentication to `no`
+
+- `sudo service ssh restart`
 
 ## 4. Configure the firewall
 - login to the remote server, type in:
