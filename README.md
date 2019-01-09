@@ -5,6 +5,7 @@
 - URL: 18.222.182.39
 - SSH port: 2200
 - User name and password for Udacity reviewer: `grader`, `grader`
+- Login with: `ssh -i ~/.ssh/udacity_key.rsa -p 2200 grader@18.222.182.39`
 
 ## Laptop on which I deploy my webapplication:
 - Macbook (MacOS Sierra 10.12.6)
@@ -263,4 +264,3 @@ application.secret_key = 'Add your secret key here'
 - Note: If wrong, type sudo tail /var/log/apache2/error.log to see what happened, and also, disable and restart the apache site with the following steps
 1. Run `sudo a2dissite 000-default.conf`
 2. Restart the server with `sudo service apache2 reload`
-
