@@ -89,7 +89,7 @@ In the editor opened, add the following text, then save and exit:
 
 `ssh -i ~/.ssh/udacity_key.rsa -p 2200 grader@18.222.182.39`
 
-- Note: you can't use `ssh -i ~/.ssh/udacity_key.rsa -p 2200 ubuntu@18.222.182.39` to login anymore because the owner has been changed from root(ubuntu) to grader. However, you can still ogin to the root user using `cd Downloads/`, and then `ssh -i us-east-backup.pem -p 2200 ubuntu@18.222.182.39`.
+- Note: you can't use `ssh -i ~/.ssh/udacity_key.rsa -p 2200 ubuntu@18.222.182.39` to login anymore because the owner has been changed from root(ubuntu) to grader. However, you can still login to the root user using `cd Downloads/`, and then `ssh -i us-east-backup.pem -p 2200 ubuntu@18.222.182.39`.
 
 5. Force key-based authentication for grader:
 
@@ -263,3 +263,4 @@ application.secret_key = 'Add your secret key here'
 - Note: If wrong, type sudo tail /var/log/apache2/error.log to see what happened, and also, disable and restart the apache site with the following steps
 1. Run `sudo a2dissite 000-default.conf`
 2. Restart the server with `sudo service apache2 reload`
+
