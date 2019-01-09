@@ -279,7 +279,10 @@ application.secret_key = 'Add your secret key here'
 
 ## Third-Party Resources
 
-[Create lightsail instances] (https://lightsail.aws.amazon.com/ls/webapp/home/instances)
+[Create lightsail instances](https://lightsail.aws.amazon.com/ls/webapp/home/instances)
+
 [Set up SSH login keypairs](https://lightsail.aws.amazon.com/ls/docs/en/articles/lightsail-how-to-set-up-ssh)
+
 [How to update and upgrade packages](https://askubuntu.com/questions/94102/what-is-the-difference-between-apt-get-update-and-upgrade)
+
 [A Step by Step Guide to Install LAMP (Linux, Apache, MySQL, Python) on Ubuntu](https://blog.udacity.com/2015/03/step-by-step-guide-install-lamp-linux-apache-mysql-python-ubuntu.html)
